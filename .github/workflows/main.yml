@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Rebuild server
-      uses: garygrossgarten/github-action-ssh@release
-      with:
-        command: ls -a
-        host: ${{ secrets.HOST }}
-        username: ${{secrets.USERNAME}}
-        privateKey: ${{ secrets.PRIVATE_KEY}}
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ls -a
+          host: ${{ secrets.HOST }}
+          username: ${{secrets.USERNAME}}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
