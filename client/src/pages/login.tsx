@@ -1,40 +1,40 @@
-import { FormEvent, useState } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import Axios from 'axios';
-import { useRouter } from 'next/router';
+import { FormEvent, useState } from 'react'
+import Head from 'next/head'
+import Link from 'next/link'
+import Axios from 'axios'
+import { useRouter } from 'next/router'
 
-import { useAuthDispatch, useAuthState } from '../context/auth';
+import { useAuthDispatch, useAuthState } from '../context/auth'
 
-import InputGroup from '../components/inputGroup';
+import InputGroup from '../components/inputGroup'
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<any>({});
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<any>({})
 
-  const dispatch = useAuthDispatch();
-  const { authenticated } = useAuthState();
+  const dispatch = useAuthDispatch()
+  const { authenticated } = useAuthState()
 
-  const router = useRouter();
-  if (authenticated) router.push('/');
+  const router = useRouter()
+  if (authenticated) router.push('/')
 
   const submitFrom = async (event: FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
 
     try {
       const res = await Axios.post('/auth/login', {
         password,
         username,
-      });
+      })
 
-      dispatch('LOGIN', res.data);
+      dispatch('LOGIN', res.data)
 
-      router.back();
+      router.back()
     } catch (err) {
-      setErrors(err.response.data);
+      setErrors(err.response.data)
     }
-  };
+  }
 
   return (
     <div className='flex bg-white'>
@@ -43,7 +43,9 @@ export default function Login() {
       </Head>
       <div
         className='h-screen bg-center bg-cover w-36'
-        style={{ backgroundImage: "url('/images/bricks.jpg')" }}
+        style={{
+          backgroundImage: `url('${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/images/bricks.jpg')`,
+        }}
       ></div>
       <div className='flex flex-col justify-center pl-6'>
         <div className='w-70'>
@@ -82,5 +84,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }
